@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ags.annada.jagannath.darshan.details.DarshanPlayerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/darshanPlayer"
+            class="com.google.android.youtube.player.YouTubePlayerSupportFragmentX"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            android:layout_height="0dp"
+            android:layout_width="match_parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="18sp"
+            android:text="@{viewmodel.videoTitle}"
+            tools:text="Video Title text that is long enough to make the line wrap around to the next line." />
+
+        <TextView
+            android:id="@+id/video_view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/video_views_text"
+            app:layout_constraintTop_toBottomOf="@id/video_title"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="20sp"
+            android:text="@{viewmodel.viewCount}"
+            tools:text="119,313" />
+
+        <TextView
+            android:id="@+id/video_views_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/video_title"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:text="views"
+            tools:text="views"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/video_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_share"
+            android:onClick="@{() -> viewmodel.shareVideo()}"/>
+
+        <TextView
+            android:id="@+id/video_share_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/video_share"
+            app:layout_constraintLeft_toRightOf="@id/video_share"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:text="Share"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/video_thumb_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/video_share"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            app:layout_constraintRight_toLeftOf="@+id/video_like_count"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_thumb_up"
+            android:onClick="@{() -> viewmodel.rateVideo()}"/>
+
+        <TextView
+            android:id="@+id/video_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/video_share"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            app:layout_constraintRight_toLeftOf="@+id/video_thumb_down"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="14sp"
+            android:text="@{viewmodel.likeCount}"
+            tools:text="99" />
+
+        <ImageView
+            android:id="@+id/video_thumb_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/video_share"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            app:layout_constraintRight_toLeftOf="@+id/video_dislike_count"
+            android:layout_marginEnd="12dp"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_thumb_down"
+            android:onClick="@{() -> viewmodel.rateVideo()}"/>
+
+        <TextView
+            android:id="@+id/video_dislike_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/video_share"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/video_view_count"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="14sp"
+            android:text="@{viewmodel.dislikeCount}"
+            tools:text="99" />
+
+        <TextView
+            android:id="@+id/video_description"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/video_share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/secondary_text_light"
+            android:maxLines="50"
+            android:singleLine="false"
+            android:text="@{viewmodel.videoDescription}"
+            tools:text="This is a sample description of the video item that is long enough to wrap around to the next line. Yes. The maximum length of text message that you can send is 918 characters. However, if you send more than 160 characters then your message will be broken down in to chunks of 153 characters before being sent to the recipient’s handset." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

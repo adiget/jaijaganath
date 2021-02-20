@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jai Jagannath</string>
+    <string name="error_init_failure_msg">Initialization failure: Unable to play video</string>
+</resources>

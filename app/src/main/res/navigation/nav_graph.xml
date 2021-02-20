@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/start_dest">
+
+    <fragment
+        android:id="@+id/start_dest"
+        android:name="com.ags.annada.jagannath.main.MainFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_darshanPlayerFragment"
+            app:destination="@id/darshanPlayerFragment" />
+    </fragment>
+
+    <!-- Darshan Player-->
+    <fragment
+        android:id="@+id/darshanPlayerFragment"
+        android:name="com.ags.annada.jagannath.darshan.details.DarshanPlayerFragment"
+        android:label="{videoTitle}"
+        tools:layout="@layout/fragment_darshan_player">
+        <argument
+            android:name="videoId"
+            app:argType="string" />
+        <argument
+            android:name="videoTitle"
+            app:argType="string" />
+        <argument
+            android:name="videoDescription"
+            app:argType="string" />
+    </fragment>
+
+    <!-- Global Action Start -->
+    <action
+        android:id="@+id/action_global_start"
+        app:destination="@id/start_dest"
+        app:popUpTo="@id/start_dest"
+        app:popUpToInclusive="true" />
+
+</navigation>
