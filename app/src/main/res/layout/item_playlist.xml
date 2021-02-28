@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ags.annada.jagannath.home.PlaylistListViewModel" />
+
+        <variable
+            name="item"
+            type="com.ags.annada.jagannath.datasource.models.playlist.PlaylistListItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="8dp"
+        android:background="@color/black_30"
+        android:elevation="8dp"
+        android:onClick="@{() -> viewmodel.onClickItem(item)}"
+        app:cardCornerRadius="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/playListItem_Thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/mqdefault"
+                app:imageUrl="@{item.snippet.thumbnails.medium.url}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/playListItem_title"/>
+
+            <TextView
+                android:id="@+id/playListItem_title"
+                style="@style/defaultTextView"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginStart="16dp"
+                android:text="@{item.snippet.title}"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:text="PlayList Title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

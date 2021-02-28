@@ -1,4 +1,4 @@
-package com.ags.annada.jagannath.datasource
+package com.ags.annada.jagannath.datasource.repository
 
 import com.ags.annada.jagannath.datasource.models.playlistItem.PlaylistItem
 import com.ags.annada.jagannath.datasource.models.playlistItem.PlaylistItemsResponse

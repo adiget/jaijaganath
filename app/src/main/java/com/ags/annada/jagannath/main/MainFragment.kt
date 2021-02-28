@@ -33,6 +33,7 @@ class MainFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Darshan"
+                1 -> "PlayList"
                 else -> "Darshan"
             }
         }.attach()

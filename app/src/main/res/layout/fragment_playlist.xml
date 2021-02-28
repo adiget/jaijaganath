@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.ags.annada.jagannath.darshan.DarshanViewModel" />
+            type="com.ags.annada.jagannath.home.PlaylistListViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -28,13 +29,16 @@
             app:srcCompat="@drawable/jagannath_png_300_200" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/darshans_list"
+            android:id="@+id/playlist_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="40dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:playlists="@{viewmodel.items}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_playlist"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

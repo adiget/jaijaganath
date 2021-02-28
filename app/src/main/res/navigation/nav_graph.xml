@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_mainFragment_to_darshanPlayerFragment"
             app:destination="@id/darshanPlayerFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_darshanFragment"
+            app:destination="@id/darshanFragment" />
     </fragment>
 
     <!-- Darshan Player-->
@@ -31,6 +35,24 @@
         <argument
             android:name="videoDescription"
             app:argType="string" />
+    </fragment>
+
+    <!-- Darshan -->
+    <fragment
+        android:id="@+id/darshanFragment"
+        android:name="com.ags.annada.jagannath.darshan.DarshanFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_darshans">
+        <argument
+            android:name="playlistId"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_darshanFragment_to_darshanPlayerFragment"
+            app:destination="@id/darshanPlayerFragment" />
     </fragment>
 
     <!-- Global Action Start -->

@@ -3,8 +3,8 @@ package com.ags.annada.jagannath.darshan.details
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.ags.annada.jagannath.datasource.DarshanRepository
 import com.ags.annada.jagannath.datasource.models.video.VideosResponse
+import com.ags.annada.jagannath.datasource.repository.DarshanRepository
 import com.ags.annada.jagannath.utils.Event
 import kotlinx.coroutines.launch
 
