@@ -12,7 +12,7 @@ import kotlinx.coroutines.FlowPreview
 
 @FlowPreview
 class PlayListAdapter @ExperimentalCoroutinesApi constructor(
-    private val viewModel: PlaylistListViewModel
+        private val viewModel: PlaylistListViewModel
 ) : ListAdapter<PlaylistListItem, PlayListAdapter.ViewHolder>(PlaylistListItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +27,7 @@ class PlayListAdapter @ExperimentalCoroutinesApi constructor(
     }
 
     class ViewHolder private constructor(val binding: ItemPlaylistBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+            RecyclerView.ViewHolder(binding.root) {
 
         @ExperimentalCoroutinesApi
         fun bind(viewModel: PlaylistListViewModel, item: PlaylistListItem) {

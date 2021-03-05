@@ -3,6 +3,7 @@ package com.ags.annada.jagannath.di
 import android.content.Context
 import androidx.room.Room
 import com.ags.annada.jagannath.datasource.room.JaiJaganathDatabase
+import com.ags.annada.jagannath.datasource.room.daos.PlaylistItemDao
 import com.ags.annada.jagannath.datasource.room.daos.PlaylistListDao
 import dagger.Module
 import dagger.Provides
@@ -23,11 +24,17 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun providePlaylistItemDao(appDatabase: JaiJaganathDatabase): PlaylistItemDao {
+        return appDatabase.playlistItemsDao()
+    }
+
+    @Singleton
+    @Provides
     fun provideDatabase(@ApplicationContext context: Context): JaiJaganathDatabase {
         return Room.databaseBuilder(
-            context.applicationContext,
-            JaiJaganathDatabase::class.java,
-            DATABASE_NAME
+                context.applicationContext,
+                JaiJaganathDatabase::class.java,
+                DATABASE_NAME
         ).build()
     }
 

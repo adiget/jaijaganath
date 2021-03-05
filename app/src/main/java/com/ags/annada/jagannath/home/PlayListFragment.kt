@@ -30,9 +30,9 @@ class PlayListFragment : Fragment() {
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlaylistBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
@@ -107,18 +107,18 @@ class PlayListFragment : Fragment() {
 
     private fun openDetails(playlistId: String, title: String?) {
         val action =
-            MainFragmentDirections.actionMainFragmentToDarshanFragment(playlistId, title ?: "")
+                MainFragmentDirections.actionMainFragmentToDarshanFragment(playlistId, title ?: "")
         findNavController().navigate(action)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(channelId: String) =
-            PlayListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_CHANNEL_ID, channelId)
+                PlayListFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_CHANNEL_ID, channelId)
+                    }
                 }
-            }
     }
 }
 

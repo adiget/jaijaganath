@@ -16,9 +16,9 @@ class DarshanPlayerViewModel @ViewModelInject constructor(
     val videoTitle = savedStateHandle.get<String>(KEY_VIDEO_TITLE)
     val videoDescription = savedStateHandle.get<String>(KEY_VIDEO_DESCRIPTION)
     var videosResponse: MutableLiveData<VideosResponse> = MutableLiveData()
-    val viewCount = videosResponse.map { it.items[0].statistics.viewCount }
-    val likeCount = videosResponse.map { it.items[0].statistics.likeCount }
-    val dislikeCount = videosResponse.map { it.items[0].statistics.dislikeCount }
+    val viewCount = videosResponse.map { it.items?.get(0)?.statistics?.viewCount }
+    val likeCount = videosResponse.map { it.items?.get(0)?.statistics?.likeCount }
+    val dislikeCount = videosResponse.map { it.items?.get(0)?.statistics?.dislikeCount }
 
     private val _shareVideoEvent = MutableLiveData<Event<Unit>>()
     val shareVideoEvent: LiveData<Event<Unit>> = _shareVideoEvent

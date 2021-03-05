@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DarshanRepository @Inject constructor(
-    private val apiService: ApiService
+        private val apiService: ApiService
 ) {
     suspend fun getAllPlaylistItems(playlistId: String): Response<PlaylistItemsResponse> {
         val allPlatListItemsResponse: Response<PlaylistItemsResponse> = getPlaylistItems(playlistId)
@@ -21,8 +21,8 @@ class DarshanRepository @Inject constructor(
         while (nextPageToken != "") {
             // Retrieve next set of items in the playlist.
             val response = apiService.getPlayListItemsForPage(
-                playlistId = playlistId,
-                pageToken = nextPageToken
+                    playlistId = playlistId,
+                    pageToken = nextPageToken
             )
 
             if (response.isSuccessful) {
@@ -38,8 +38,8 @@ class DarshanRepository @Inject constructor(
     }
 
     suspend fun getPlaylistItems(playlistId: String) =
-        apiService.getPlayListItems(playlistId = playlistId)
+            apiService.getPlayListItems(playlistId = playlistId)
 
     suspend fun getVideoStatistics(videoId: String?) =
-        videoId?.let { apiService.getVideoStatisticsByVideoId(videoId = it) }
+            videoId?.let { apiService.getVideoStatisticsByVideoId(videoId = it) }
 }

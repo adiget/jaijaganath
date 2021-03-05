@@ -18,6 +18,14 @@ interface ApiService {
     ): Flow<ApiResponse<PlaylistListResponse>>
 
     @GET(Contracts.PLAYLIST_ITEM_ENDPOINT)
+    fun getAllPlayListItemsForPlayListId(
+        @Query("part") part: String = "snippet,status",
+        @Query("playlistId") playlistId: String,
+        @Query("pageToken") pageToken: String? = "",
+        @Query("maxResults") maxResults: Int? = 50
+    ): Flow<ApiResponse<PlaylistItemsResponse>>
+
+    @GET(Contracts.PLAYLIST_ITEM_ENDPOINT)
     suspend fun getPlayListItems(
         @Query("part") part: String = "snippet,status",
         @Query("playlistId") playlistId: String,

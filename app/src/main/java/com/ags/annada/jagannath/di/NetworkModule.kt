@@ -27,11 +27,11 @@ object NetworkModule {
     @Provides
     internal fun providesRetrofitClient(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_YOUTUBE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(FlowCallAdapterFactory())
-            .client(providesOkHttpClient())
-            .build()
+                .baseUrl(BASE_YOUTUBE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(FlowCallAdapterFactory())
+                .client(providesOkHttpClient())
+                .build()
     }
 
     @Singleton

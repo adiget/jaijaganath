@@ -48,7 +48,7 @@ internal class FlowCallAdapter<R>(
                 }
 
                 override fun onFailure(call: Call<R>, throwable: Throwable) {
-                    //offer(ApiResponse.create(throwable))
+                    offer(ApiResponse.create<Throwable>(throwable))
                 }
             })
 
