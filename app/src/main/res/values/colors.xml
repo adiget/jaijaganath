@@ -20,4 +20,5 @@
     <color name="colorGradientStart">#C40202</color>
     <color name="colorGradientCenter">#99d20d</color>
     <color name="colorGradientEnd">#d7d20d</color>
+    <color name="light_sky_blue">#87cefa</color>
 </resources>

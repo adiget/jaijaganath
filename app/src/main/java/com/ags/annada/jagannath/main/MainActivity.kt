@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.ags.annada.jagannathauk.R
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration

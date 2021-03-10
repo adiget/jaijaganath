@@ -22,7 +22,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import timber.log.Timber
 
-
 @AndroidEntryPoint
 class MangalaAratiFragment : Fragment() {
     @ExperimentalCoroutinesApi
@@ -34,17 +33,13 @@ class MangalaAratiFragment : Fragment() {
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         binding = FragmentMangalaAratiBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
-        }
-
-        if (viewModel.videoId?.value != null) {
-            initYouTube(viewModel.videoId?.value)
         }
 
         return binding.root
@@ -85,12 +80,12 @@ class MangalaAratiFragment : Fragment() {
         val shareVideoIntent = Intent()
         shareVideoIntent.action = Intent.ACTION_SEND
         shareVideoIntent.putExtra(
-                Intent.EXTRA_SUBJECT,
-                "Watch \"" + viewModel.videoTitle + "\" on YouTube"
+            Intent.EXTRA_SUBJECT,
+            "Watch \"" + viewModel.videoTitle + "\" on YouTube"
         )
         shareVideoIntent.putExtra(
-                Intent.EXTRA_TEXT,
-                "https://www.youtube.com/watch?v=" + viewModel.videoId
+            Intent.EXTRA_TEXT,
+            "https://www.youtube.com/watch?v=" + viewModel.videoId
         )
         shareVideoIntent.type = "text/plain"
         startActivity(shareVideoIntent)
@@ -98,72 +93,72 @@ class MangalaAratiFragment : Fragment() {
 
     private fun rateVideo() {
         Toast.makeText(
-                context,
-                "To rate this video, please click YouTube link on Video",
-                Toast.LENGTH_LONG
+            context,
+            "To rate this video, please click YouTube link on Video",
+            Toast.LENGTH_LONG
         ).show()
     }
 
     private fun initYouTube(videoId: String?) {
         youTubePlayerFragment =
-                childFragmentManager.findFragmentById(R.id.darshanPlayer) as YouTubePlayerSupportFragmentX?
+            childFragmentManager.findFragmentById(R.id.darshanPlayer) as YouTubePlayerSupportFragmentX?
 
         Timber.d("initYouTube VideoId:- $videoId")
 
         youTubePlayerFragment?.initialize(
-                API_KEY,
-                object : YouTubePlayer.OnInitializedListener {
-                    override fun onInitializationSuccess(
-                            provider: YouTubePlayer.Provider,
-                            player: YouTubePlayer,
-                            wasRestored: Boolean
-                    ) {
-                        player.fullscreenControlFlags =
-                                YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION
+            API_KEY,
+            object : YouTubePlayer.OnInitializedListener {
+                override fun onInitializationSuccess(
+                    provider: YouTubePlayer.Provider,
+                    player: YouTubePlayer,
+                    wasRestored: Boolean
+                ) {
+                    player.fullscreenControlFlags =
+                        YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION
 
-                        Timber.d("onInitializationSuccess")
-                        if (videoId != null) {
-                            if (wasRestored) {
-                                Timber.d("wasRestored")
-                                player.play()
-                            } else {
-                                Timber.d("loadVideo")
-                                player.loadVideo(videoId)
-                            }
-                        }
-                    }
-
-                    override fun onInitializationFailure(
-                            provider: YouTubePlayer.Provider,
-                            youTubeInitializationResult: YouTubeInitializationResult
-                    ) {
-                        Timber.d("onInitializationFailure")
-                        if (youTubeInitializationResult.isUserRecoverableError) {
-                            youTubeInitializationResult.getErrorDialog(
-                                    activity,
-                                    RECOVERY_DIALOG_REQUEST
-                            ).show()
+                    Timber.d("onInitializationSuccess")
+                    if (videoId != null) {
+                        if (wasRestored) {
+                            Timber.d("wasRestored")
+                            player.play()
                         } else {
-                            if (isAdded) {
-                                Toast.makeText(
-                                        activity?.applicationContext,
-                                        getString(R.string.error_init_failure_msg),
-                                        Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                            Timber.d("loadVideo")
+                            player.loadVideo(videoId)
                         }
                     }
-                })
+                }
+
+                override fun onInitializationFailure(
+                    provider: YouTubePlayer.Provider,
+                    youTubeInitializationResult: YouTubeInitializationResult
+                ) {
+                    Timber.d("onInitializationFailure")
+                    if (youTubeInitializationResult.isUserRecoverableError) {
+                        youTubeInitializationResult.getErrorDialog(
+                            activity,
+                            RECOVERY_DIALOG_REQUEST
+                        ).show()
+                    } else {
+                        if (isAdded) {
+                            Toast.makeText(
+                                activity?.applicationContext,
+                                getString(R.string.error_init_failure_msg),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            })
     }
 
     companion object {
         @JvmStatic
         fun newInstance(playlistId: String) =
-                MangalaAratiFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PLAYLIST_ID, playlistId)
-                    }
+            MangalaAratiFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PLAYLIST_ID, playlistId)
                 }
+            }
     }
 }
 

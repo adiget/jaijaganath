@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ags.annada.jagannath.datasource.models.playlistItem.PlaylistItem
 import com.ags.annada.jagannathauk.databinding.ItemDarshanBinding
 
-
 class DarshanAdapter(
     private val viewModel: DarshanViewModel
 ) : ListAdapter<PlaylistItem, DarshanAdapter.ViewHolder>(DarshanDiffCallback()) {

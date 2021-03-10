@@ -14,34 +14,28 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MangalaAratiViewModel @ViewModelInject constructor(
-        @Assisted private val savedStateHandle: SavedStateHandle,
-        private val playlistItemsRepository: PlaylisItemsRepository,
-        private val darshanRepository: DarshanRepository//review this
+    @Assisted private val savedStateHandle: SavedStateHandle,
+    private val playlistItemsRepository: PlaylisItemsRepository,
+    private val darshanRepository: DarshanRepository//review this
 ) : ViewModel() {
     val playlistId =
-            savedStateHandle.getLiveData<String>(ARG_PLAYLIST_ID)
+        savedStateHandle.getLiveData<String>(ARG_PLAYLIST_ID)
 
     private val _items = MutableLiveData<Resource<List<PlaylistItem>>>()
     val items: LiveData<Resource<List<PlaylistItem>>> = _items
 
-    val publicItems: LiveData<List<PlaylistItem>?>? = items.map {
-        if (it.data?.isNotEmpty() == true) {
-            it.data.filter { it.status.privacyStatus == "public" }
-        } else {
-            null
-        }
-    }
+    private val _latestItem = MutableLiveData<PlaylistItem>()
+    val latestItem: LiveData<PlaylistItem>? = _latestItem
 
-    val latestItem: LiveData<PlaylistItem?>? = publicItems?.map { it?.sortedByDescending { it.snippet.publishedAt }?.get(0) }
-
-    val videoId = latestItem?.map { it?.snippet?.resourceId?.videoId }?.distinctUntilChanged()
-    val videoTitle = latestItem?.map { it?.snippet?.title }
-    val videoDescription = latestItem?.map { it?.snippet?.description }
+    val videoId = latestItem?.map { it.snippet.resourceId.videoId }?.distinctUntilChanged()
+    val videoTitle = latestItem?.map { it.snippet.title }
+    val videoDescription = latestItem?.map { it.snippet.description }
 
     var videosResponse: MutableLiveData<VideosResponse?>? = MutableLiveData()
     val viewCount = videosResponse?.map { it?.items?.get(0)?.statistics?.viewCount }
@@ -54,13 +48,20 @@ class MangalaAratiViewModel @ViewModelInject constructor(
     private val _rateVideoEvent = MutableLiveData<Event<Unit>>()
     val rateVideoEvent: LiveData<Event<Unit>> = _rateVideoEvent
 
+    private val nextPageTokenFlow = playlistItemsRepository.nextPageTokenFlow
 
     init {
         viewModelScope.launch {
-            playlistId.asFlow().flatMapMerge { id ->
-                playlistItemsRepository.getPlaylistItems(id, "").distinctUntilChanged()
-            }.collect {
+            nextPageTokenFlow?.take(1)?.flatMapMerge { token ->
+                playlistId.asFlow().flatMapMerge { id ->
+                    playlistItemsRepository.getPlaylistItems(id, token).distinctUntilChanged()
+                }
+            }?.collect {
                 _items.value = it
+
+                if (it.data?.isNotEmpty() == true) {
+                    _latestItem.value = it.data[0]
+                }
             }
         }
     }

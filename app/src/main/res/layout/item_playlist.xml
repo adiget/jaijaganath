@@ -33,18 +33,28 @@
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/mqdefault"
-                app:imageUrl="@{item.snippet.thumbnails.medium.url}"
+                app:imageUrlPalette="@{item.snippet.thumbnails.medium.url}"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/playListItem_title"/>
+                app:layout_constraintBottom_toTopOf="@+id/guideline"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75"/>
 
             <TextView
                 android:id="@+id/playListItem_title"
-                style="@style/defaultTextView"
                 android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:gravity="center"
-                android:layout_marginStart="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@{item.snippet.title}"
                 android:textSize="18sp"
+                android:textColor="@color/colorSecondary"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:text="PlayList Title" />

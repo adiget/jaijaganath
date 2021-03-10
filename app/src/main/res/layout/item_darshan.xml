@@ -25,21 +25,34 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/playListItem_Thumbnail"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.snippet.thumbnails.medium.url}"
+                app:shapeAppearanceOverlay="@style/roundedImageView"
+                app:shapeableImageUrl="@{item.snippet.thumbnails.medium.url}"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/mqdefault"
+                />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/playListItem_Thumbnail"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="120dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:imageUrl="@{item.snippet.thumbnails.medium.url}"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:src="@drawable/mqdefault"/>-->
 
             <TextView
                 android:id="@+id/playListItem_title"
                 style="@style/defaultTextView"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:text="@{item.snippet.title}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/playListItem_Thumbnail"
@@ -49,7 +62,7 @@
 
 
             <TextView
-                android:id="@+id/emp_id_label"
+                android:id="@+id/published_at_label"
                 style="@style/DetailsLabelTextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

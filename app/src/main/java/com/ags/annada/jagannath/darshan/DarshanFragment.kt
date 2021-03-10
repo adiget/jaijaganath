@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.ags.annada.jagannath.main.MainFragment
 import com.ags.annada.jagannath.main.MainFragmentDirections
 import com.ags.annada.jagannath.utils.EventObserver
-import com.ags.annada.jagannath.utils.Result
 import com.ags.annada.jagannathauk.databinding.FragmentDarshansBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,40 +82,18 @@ class DarshanFragment : Fragment() {
 
     fun setupObserver() {
         viewModel.getPlaylistItems()
-        viewModel.playlistItemLiveData.observe(viewLifecycleOwner, Observer { response ->
-            when (response) {
-                is Result.Success -> {
-                    hideProgressBar()
-                    response.data.let {
-                        adapter.submitList(it.playlistItem2s.filter {
-                            it.status.privacyStatus.equals(
-                                "public"
-                            )
-                        }.sortedByDescending { it.snippet.publishedAt })
-                    }
-                }
-
-                is Result.Error -> {
-                    hideProgressBar()
-                }
-
-                is Result.Loading -> {
-                    showProgressBar()
-                }
+        viewModel.playlistItems.observe(viewLifecycleOwner, Observer { response ->
+            response.data.let { it ->
+                adapter.submitList(it?.playlistItem2s?.filter {
+                    it.status.privacyStatus.equals(
+                        "public"
+                    )
+                }?.sortedByDescending { it.snippet.publishedAt })
             }
         })
     }
 
-    private fun hideProgressBar() {
-        //progressBarVideoList.visibility = View.INVISIBLE
-    }
-
-    private fun showProgressBar() {
-        //progressBarVideoList.visibility = View.VISIBLE
-    }
-
     private fun openDetails(videoId: String, title: String, description: String) {
-
         val action: NavDirections = if (parentFragment is MainFragment) {
             MainFragmentDirections.actionMainFragmentToDarshanPlayerFragment(
                 videoId,

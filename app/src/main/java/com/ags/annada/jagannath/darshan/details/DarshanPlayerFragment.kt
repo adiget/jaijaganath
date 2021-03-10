@@ -19,7 +19,6 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragmentX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_darshan_player.*
 
-
 @AndroidEntryPoint
 class DarshanPlayerFragment : Fragment() {
     private val viewModel by viewModels<DarshanPlayerViewModel>()

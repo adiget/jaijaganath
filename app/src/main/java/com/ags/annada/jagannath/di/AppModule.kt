@@ -1,6 +1,9 @@
 package com.ags.annada.jagannath.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
 import com.ags.annada.jagannath.datasource.room.JaiJaganathDatabase
 import com.ags.annada.jagannath.datasource.room.daos.PlaylistItemDao
@@ -32,15 +35,20 @@ object AppModule {
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): JaiJaganathDatabase {
         return Room.databaseBuilder(
-                context.applicationContext,
-                JaiJaganathDatabase::class.java,
-                DATABASE_NAME
+            context.applicationContext,
+            JaiJaganathDatabase::class.java,
+            DATABASE_NAME
         ).build()
     }
 
     @Singleton
     @Provides
     fun provideIoDispatcher() = Dispatchers.IO
+
+    @Provides
+    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> =
+        context.createDataStore(name = PREFERENCE_NAME)
 }
 
 const val DATABASE_NAME = "JaiJaganath.db"
+const val PREFERENCE_NAME = "pagetoken-preference"

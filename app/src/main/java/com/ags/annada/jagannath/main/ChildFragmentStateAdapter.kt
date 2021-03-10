@@ -10,7 +10,7 @@ import com.ags.annada.jagannath.home.PlayListFragment
 import com.ags.annada.jagannath.mangalaarti.MangalaAratiFragment
 
 class ChildFragmentStateAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-        FragmentStateAdapter(fragmentManager, lifecycle) {
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int = 2
 

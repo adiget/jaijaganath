@@ -16,17 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layoutDescription="@xml/motion_scene"
+        app:layoutDescription="@xml/motion_scene_playlist"
         app:showPaths="false">
 
         <ImageView
             android:id="@+id/image_section"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="fitCenter"
+            android:scaleType="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/jagannath_png_300_200" />
+            app:srcCompat="@drawable/jagannath_banner" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playlist_list"

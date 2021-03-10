@@ -7,7 +7,7 @@ import com.ags.annada.jagannath.datasource.models.playlistItem.PlaylistItem
 import com.ags.annada.jagannath.datasource.models.playlistItem.PlaylistItemsResponse
 import com.ags.annada.jagannath.datasource.repository.DarshanRepository
 import com.ags.annada.jagannath.utils.Event
-import com.ags.annada.jagannath.utils.Result
+import com.ags.annada.jagannath.utils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -23,7 +23,8 @@ class DarshanViewModel @ViewModelInject constructor(
 
     var selectedPlayListItem: PlaylistItem? = null
 
-    val playlistItemLiveData: MutableLiveData<Result<PlaylistItemsResponse>> = MutableLiveData()
+    private val _playlistItems: MutableLiveData<Resource<PlaylistItemsResponse>> = MutableLiveData()
+    val playlistItems: LiveData<Resource<PlaylistItemsResponse>> = _playlistItems
 
     private val _snackbarText = MutableLiveData<Event<Int>>()
     val snackbarText: LiveData<Event<Int>> = _snackbarText
@@ -34,18 +35,20 @@ class DarshanViewModel @ViewModelInject constructor(
     }
 
     fun getPlaylistItems() = viewModelScope.launch {
-        playlistItemLiveData.postValue(Result.Loading)
+        _playlistItems.postValue(Resource.loading(null))
+
         val response = repository.getAllPlaylistItems(playlistId)
-        playlistItemLiveData.postValue(handlePlaylistItemResponse(response))
+
+        _playlistItems.postValue(handlePlaylistItemResponse(response))
     }
 
-    private fun handlePlaylistItemResponse(response: Response<PlaylistItemsResponse>): Result<PlaylistItemsResponse> {
+    private fun handlePlaylistItemResponse(response: Response<PlaylistItemsResponse>): Resource<PlaylistItemsResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
-                return Result.Success(it)
+                return Resource.success(it)
             }
         }
 
-        return Result.Error(Exception())
+        return Resource.error(response.errorBody().toString(), null)
     }
 }

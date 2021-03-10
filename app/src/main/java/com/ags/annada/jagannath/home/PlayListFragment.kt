@@ -1,15 +1,15 @@
 package com.ags.annada.jagannath.home
 
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.widget.SearchView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ags.annada.jagannath.datasource.models.playlist.PlaylistListItem
 import com.ags.annada.jagannath.main.MainFragmentDirections
 import com.ags.annada.jagannath.utils.EventObserver
-import com.ags.annada.jagannathauk.R
 import com.ags.annada.jagannathauk.databinding.FragmentPlaylistBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,9 +30,9 @@ class PlayListFragment : Fragment() {
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlaylistBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
@@ -52,24 +52,6 @@ class PlayListFragment : Fragment() {
         setupSnackbar()
         setupNavigation()
         setupAdapter()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-
-        val item = menu.findItem(R.id.action_search)
-        val searchView: SearchView = item.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                //viewModel.setSearchString(query)
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                //viewModel.setSearchString(newText)
-                return false
-            }
-        })
     }
 
     @ExperimentalCoroutinesApi
@@ -107,18 +89,18 @@ class PlayListFragment : Fragment() {
 
     private fun openDetails(playlistId: String, title: String?) {
         val action =
-                MainFragmentDirections.actionMainFragmentToDarshanFragment(playlistId, title ?: "")
+            MainFragmentDirections.actionMainFragmentToDarshanFragment(playlistId, title ?: "")
         findNavController().navigate(action)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(channelId: String) =
-                PlayListFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_CHANNEL_ID, channelId)
-                    }
+            PlayListFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_CHANNEL_ID, channelId)
                 }
+            }
     }
 }
 

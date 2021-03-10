@@ -74,7 +74,6 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
         }
     }
 
-
     protected open fun onFetchFailed() {}
 
     @WorkerThread
